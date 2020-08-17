@@ -114,6 +114,8 @@ int main()
 // 5 6
 // 6 2
 ```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
 
 ##  Longest Palindromic Subsequence
 
@@ -197,6 +199,8 @@ int main()
 // iuabtsucsyftg   5
 ```
 
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
 ##  Longest Common Subsequence
 
 ```C++
@@ -279,6 +283,10 @@ int main()
 // Input            Output
 // anshaj anuj        3
 ```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
 ##  Longest Common Substring
 
 ```C++
@@ -365,6 +373,8 @@ int main()
 
 ```
 
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
 ##  Edit Operations
 
 ```C++
@@ -445,3 +455,7 @@ int main()
 // anshaj anuj        3
 
 ```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
