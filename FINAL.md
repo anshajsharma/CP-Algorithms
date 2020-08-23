@@ -22,6 +22,8 @@
 |8   | [Coin Change Problem](#coin-change-problem) |
 |9   | [Optimal Binary Search Tree](#optimal-binary-search-tree) |
 |10  | [Rod Cutting Problem](#rod-cutting-problem) |
+|11  | [Wildcard Pattern Matching](#wildcard-pattern-matching) |
+|12  | [Regular Expression Matching](#regular-expression-matching) |
 
 
 ##  Matrix Chain Multiplication
@@ -997,6 +999,214 @@ int main()
 // 2 5 7 8
 
 
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+
+##  Wildcard Pattern Matching
+Given a text and a wildcard pattern, implement wildcard pattern matching algorithm that finds if wildcard pattern is matched with text. The matching should cover the entire text (not partial text).  
+
+The wildcard pattern can include the characters ‘?’ and ‘\*’  
+*  ‘?’ – matches any single character  
+*  ‘\*’ – Matches any sequence of characters (including the empty sequence)  
+
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define loop(i,n)    for(int i = 0; x < n; i++)
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+// Time Complexicity : O(n*k)
+// Space Complexicity : O(n*k) 
+int wildCardPatternMatching(string s,string p){
+    ll n=s.size();
+    ll k=p.size();
+    ll dp[n+1][k+1];
+    memset(dp,0,sizeof(dp));
+      
+    dp[0][0]=1;
+
+    fr(i,1,k+1) if(p[i-1]=='*') dp[0][i]=dp[0][i-1];
+
+    fr(i,1,n+1) dp[i][0]=0;
+
+    fr(i,1,n+1)
+    {
+        char temp=s[i-1];
+        fr(j,1,k+1)
+        {
+            if(p[j-1]=='*') dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            else if(p[j-1]==temp||p[j-1]=='?') dp[i][j]=dp[i-1][j-1];
+            // cout<<dp[i][j]<<" ";
+        }
+        // cout<<endl;
+    }
+
+     return dp[n][k];
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    string s,pattern;
+
+    cin>>s>>pattern;
+    
+    cout<<wildCardPatternMatching(s,pattern)<<endl;
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Example
+// Input              Output
+// xaylmz                1
+// x?y*z
+
+// baaabab               1
+// *****ba*****ab
+
+// baaabab               0
+// a*ab
+
+
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Regular Expression Matching
+
+Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.  
+
+*  '.' Matches any single character.  
+*  '*' Matches zero or more of the preceding element.  
+*  The matching should cover the entire input string (not partial).  
+
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define loop(i,n)    for(int i = 0; x < n; i++)
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+// Time Complexicity : O(n*k)
+// Space Complexicity : O(n*k) 
+int regularExpressionMatching(string s,string p){
+    ll n=s.size();
+    ll k=p.size();
+    ll dp[n+1][k+1];
+    memset(dp,0,sizeof(dp));
+      
+    dp[0][0]=1;
+
+    fr(i,1,k+1) if(p[i-1]=='*') {if(i-2>=0) dp[0][i]=dp[0][i-2]; else dp[0][i]=1;}
+
+    fr(i,1,n+1)  dp[i][0]=0;
+
+    fr(i,1,n+1)
+    {
+        char temp=s[i-1];
+        fr(j,1,k+1)
+        {
+            if(p[j-1]=='*') {
+                dp[i][j] = dp[i][j - 2];
+                    if (p[j-2] == '.' || p[j - 2] == s[i - 1]) {
+                        dp[i][j] = dp[i][j] | dp[i - 1][j];
+                    }
+            }
+            else if(p[j-1]==temp||p[j-1]=='.') dp[i][j]=dp[i-1][j-1];
+            // cout<<dp[i][j]<<" ";
+        }
+        // cout<<endl;
+    }
+
+     return dp[n][k];
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    string s,pattern;
+
+    cin>>s>>pattern;
+    
+    cout<<regularExpressionMatching(s,pattern)<<endl;  //regEx
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Example
+// Input              Output
+// mississippi            0
+// mis*is*p*.
+
+// ab                     1
+// .*
 
 ```
 **[⬆ Back to Top](#----cp-algorithms-)** 
