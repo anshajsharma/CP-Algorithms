@@ -1604,15 +1604,6 @@ typedef long long ll;
 #define zer          LONG_MIN
 const long mod=pow(10,9)+7;
 
-struct Job {
-    ll stTime,endTime,profit;
-};
-
-bool comp(Job job1,Job job2)
-{
-    if(job1.endTime!=job2.endTime) return job1.endTime<job2.endTime;
-    else return job1.stTime<job2.stTime;
-}
 
 // Time Complexicity : O(n*m)
 // Space Complexicity : O(n*m) 
