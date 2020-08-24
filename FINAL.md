@@ -26,6 +26,8 @@
 |12  | [Regular Expression Matching](#regular-expression-matching) |
 |13  | [Egg Dropping Problem](#egg-dropping-problem) |
 |14  | [Maximum sum rectangle in a 2D matrix ( 2D Kadane )](#maximum-sum-rectangle-in-a-2d-matrix--2d-kadane-) |
+|15  | [Weighted Job Scheduling](#weighted-job-scheduling) |
+|16  | [Maximum Sub Square With All 1 In Binary Matrix](#maximum-sub-square-with-all-1-in-binary-matrix) |
 
 
 
@@ -1440,3 +1442,228 @@ int main()
 
 ```
 **[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Weighted Job Scheduling
+Given N jobs where every job is represented by following three elements of it.
+
+1.  Start Time
+2.  Finish Time
+3.  Profit or Value Associated (>= 0)  
+
+Find the maximum profit subset of jobs such that no two jobs in the subset overlap.
+
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define loop(i,n)    for(int i = 0; x < n; i++)
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+struct Job {
+    ll stTime,endTime,profit;
+};
+
+bool comp(Job job1,Job job2)
+{
+    if(job1.endTime!=job2.endTime) return job1.endTime<job2.endTime;
+    else return job1.stTime<job2.stTime;
+}
+
+// Time Complexicity : O(n*n)
+// Space Complexicity : O(n*n) 
+ll weightedJobScheduling(){
+       ll n;
+       cin>>n;
+       Job jobs[n]; 
+       fr(i,0,n)
+       {
+        ll a,b,c;
+        cin>>a>>b>>c;
+        jobs[i].stTime=a;
+        jobs[i].endTime=b;
+        jobs[i].profit=c;
+       }
+       sort(jobs,jobs+n,comp);
+       ll dp[n]={0};
+       fr(i,0,n)
+       {
+        dp[i]=jobs[i].profit;
+       }
+
+
+       fr(i,1,n)
+       {
+        fr(j,0,n)
+        {
+            if(jobs[i].stTime>=jobs[j].endTime)
+            {
+                dp[i]=max(dp[i],dp[j]+jobs[i].profit);
+            }
+        }
+       }
+
+       ll mx=zer;
+       fr(i,0,n) mx=max(dp[i],mx);
+       return mx;
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    cout<< weightedJobScheduling();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Example
+// Input                  Output
+
+// 6                        17
+// 1 3 5
+// 2 5 6
+// 4 6 5
+// 6 7 4
+// 5 8 11 
+// 7 9 2
+
+// 5                        11
+// 1 2 5
+// 2 4 6
+// 1 3 5
+// 1 5 4
+// 2 5 6
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Maximum Sub Square With All 1 In Binary Matrix
+Given a binary matrix, find out the maximum size square sub-matrix with all 1s.
+
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define loop(i,n)    for(int i = 0; x < n; i++)
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+struct Job {
+    ll stTime,endTime,profit;
+};
+
+bool comp(Job job1,Job job2)
+{
+    if(job1.endTime!=job2.endTime) return job1.endTime<job2.endTime;
+    else return job1.stTime<job2.stTime;
+}
+
+// Time Complexicity : O(n*m)
+// Space Complexicity : O(n*m) 
+ll maxSubSquare(){
+       ll n,m;
+       cin>>n>>m;
+       ll a[n][m];
+
+       fr(i,0,n)
+       fr(j,0,m) cin>>a[i][j];
+
+       ll dp[n+1][m+1];
+       memset(dp,0,sizeof(dp));
+       ll mx=zer;
+       fr(i,1,n+1)
+       fr(j,1,m+1)
+       {
+        if(a[i-1][j-1]==1)
+        {
+            dp[i][j]= min(min(dp[i-1][j-1],dp[i-1][j]),dp[i][j-1])+1;
+        }
+        mx=max(mx,dp[i][j]);
+       }
+
+       return mx;
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    cout<< maxSubSquare();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Example
+// Input                    Output
+
+// 5 4                         2
+// 1 0 1 0
+// 1 1 1 0
+// 1 1 0 1
+// 1 1 1 0
+// 1 1 1 0
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
