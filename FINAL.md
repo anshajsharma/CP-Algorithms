@@ -1265,7 +1265,7 @@ typedef long long ll;
 #define zer          LONG_MIN
 const long mod=pow(10,9)+7;
 
-// Time Complexicity : O(n*e)
+// Time Complexicity : O(n*n*e)
 // Space Complexicity : O(n*e) 
 ll eggDroppingProblem(ll n,ll e){
     ll dp[e+1][n+1];
