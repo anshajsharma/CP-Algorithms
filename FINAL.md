@@ -1355,7 +1355,7 @@ typedef long long ll;
 #define zer          LONG_MIN
 const long mod=pow(10,9)+7;
 
-// Time Complexicity : O(n*n)
+// Time Complexicity : O(n*n*n)
 // Space Complexicity : O(n*n) 
 ll maximumSumRectangularSubmatrix(ll n){
     ll a[n][n];
