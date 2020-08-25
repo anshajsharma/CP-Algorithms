@@ -47,26 +47,79 @@ typedef long long ll;
 #define zer          LONG_MIN
 const long mod=pow(10,9)+7;
 
-int editOperations(string s1, string s2){
-    int m = s1.length();
-    int n = s2.length();
-    int dp[m+1][n+1];
-    for (int i = 0; i <= m; i++) {
-        dp[i][0] = i;
-    }
-    for (int j = 0; j <= n; j++) {
-        dp[0][j] = j;
-    }
+// Time Complexicity : O(n*m)
+// Space Complexicity : O(n*m) 
+void maxSubRectangle(){
+       ll n,m;
+       cin>>n>>m;
+       ll a[n][m];
 
-    for (int i = 1; i <= m; i++) {
-        for (int j = 1; j <= n; j++) {
-        if (s1[i-1] == s2[j-1]) dp[i][j] = dp[i-1][j-1];
-        else dp[i][j] = 1 + min(min(dp[i][j-1],dp[i-1][j]),dp[i-1][j-1]);
-        }
+       fr(i,0,n)
+       fr(j,0,m) cin>>a[i][j];
+
+       ll mx=zer;
+       ll currMax=zer,currSum=0;
+       ll mxL=0,mxUp=0,mxDn=0,mxR=0;
+
+       ll b[n];
+       fr(L,0,m)
+        {
+         memset(b,0,sizeof(b));
+         fr(R,L,m)
+         {
+            fr(j,0,n) {
+                if(a[j][R]) b[j]+=1;
+                else b[j]=0;
+            }
+
+            currMax=zer;
+            currSum=0;
+            stack<ll> s;
+            ll stPoint=0;
+
+            fr(i,0,n)
+            {
+                while(!s.empty() && b[s.top()]>b[i])
+                {
+                    stPoint=s.top();
+                    s.pop();
+                    currSum= (i- stPoint)*b[stPoint];
+                    if(currMax<currSum){
+                         currMax=currSum;
+                         if(currMax>mx){
+                         mx=currMax;
+                         mxL=L;
+                         mxR=R;
+                         mxUp=stPoint;
+                         mxDn=i;
+                        }
+                    }
+                }
+                s.push(i);
+            }
+            while(!s.empty()){
+                stPoint=s.top();
+                    s.pop();
+                    if(s.empty()) currSum= (n)*b[stPoint];
+                    else currSum= (n - stPoint)*b[stPoint];
+                    if(currMax<currSum){
+                         currMax=currSum;
+                         if(currMax>mx){
+                         mx=currMax;
+                         mxL=L;
+                         mxR=R;
+                         mxUp=stPoint;
+                         mxDn=n-1;
+                        }
+                    }
+            }
+
+
+         }
     }
-    return dp[m][n];
+     cout<<mx<<" " <<mxL<<" "<<mxR<<" "<<mxUp<<" "<<mxDn<<endl;
+
 }
-
 int main()
 {
     // fast;
@@ -75,29 +128,37 @@ int main()
     freopen("outputf.in" , "w" , stdout);
     #endif
 
-    string s1,s2;
-    cin>>s1>>s2;
-
-    cout<<editOperations(s1,s2);
-
+    maxSubRectangle();  
 
     #ifndef ONLINE_JUDGE
     cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
     #endif
     return 0;
 }
-// Time Complexicity : O(n*m)
-// Space Complexicity : O(n*m)
 // Example
-// Input            Output
-// anshaj anuj        3
+// Input                     Output
+
+// 5 4                      8 0 1 1 4
+// 1 0 1 0
+// 1 1 1 0
+// 1 1 0 1
+// 1 1 1 0
+// 1 1 1 0
+
+// 5 5                      10 0 4 3 4
+// 1 0 1 0 1
+// 1 1 1 0 1
+// 1 1 0 1 1
+// 1 1 1 1 1
+// 1 1 1 1 1
+
 
 ```
 **[⬆ Back to Top](#----cp-algorithms-)** 
 
 
-##  Edit Operations
-
+##  Maximum profit by buying and selling a share at most k times
+In share trading, a buyer buys shares and sells on a future date. Given the stock price of n days, the trader is allowed to make at most k transactions, where a new transaction can only start after the previous transaction is complete, find out the maximum profit that a share trader could have made.
 ```C++
 #include<bits/stdc++.h>
 using namespace std;
