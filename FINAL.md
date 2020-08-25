@@ -1124,6 +1124,8 @@ Given an input string (s) and a pattern (p), implement regular expression matchi
 *  '*' Matches zero or more of the preceding element.  
 *  The matching should cover the entire input string (not partial).  
 
+>  https://leetcode.com/problems/regular-expression-matching/
+
 ```C++
 #include<bits/stdc++.h>
 using namespace std;
