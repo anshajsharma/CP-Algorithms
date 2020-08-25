@@ -1664,7 +1664,39 @@ int main()
 
 ##  Maximum Sub Rectangle With All 1 In Binary Matrix
 Given a binary matrix, find the maximum size rectangle binary-sub-matrix with all 1’s.
->  **Additional Concept Used:** Max Area under histogram.(stack)  
+>  **Additional Concept Used:** Max Area under histogram.(stack) 
+*  https://leetcode.com/problems/largest-rectangle-in-histogram/
+```c++
+int largestRectangleArea(vector<int>& a) {
+        int ans=0;
+        int n=a.size();
+        stack<int> s;
+        fr(i,0,n)
+        {
+            while(!s.empty()&&a[s.top()]>a[i])
+            {
+                int temp=s.top();
+                s.pop();
+                int t;
+                if(s.empty()) t= a[temp]*i;
+                else t = (i-s.top()-1)*a[temp] ;
+                if(t>ans) ans=t;
+            }
+            s.push(i);
+        }
+        while(!s.empty())
+            {
+                int temp=s.top();
+                s.pop();
+                int t;
+                if(s.empty()) t= a[temp]*n;
+                else t = (n-s.top()-1)*a[temp] ;
+                if(t>ans) ans=t;
+            }
+        return ans;
+        
+    }
+```
 
 *  https://leetcode.com/problems/maximal-rectangle/
 ```C++
