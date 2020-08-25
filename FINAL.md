@@ -1356,7 +1356,7 @@ typedef long long ll;
 const long mod=pow(10,9)+7;
 
 // Time Complexicity : O(n*n*n)
-// Space Complexicity : O(n*n) 
+// Space Complexicity : O(n) 
 ll maximumSumRectangularSubmatrix(ll n){
     ll a[n][n];
     fr(i,0,n) fr(j,0,n) cin>>a[i][j];
