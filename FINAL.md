@@ -30,8 +30,8 @@
 |16  | [Maximum Sub Square With All 1 In Binary Matrix](#maximum-sub-square-with-all-1-in-binary-matrix) |
 |17  | [Maximum Sub Rectangle With All 1 In Binary Matrix](#maximum-sub-rectangle-with-all-1-in-binary-matrix) |
 |18  | [Maximum profit by buying and selling a share at most k times](#maximum-profit-by-buying-and-selling-a-share-at-most-k-times) |
-
-
+|19  | [0-1 Knapsack](#0-1-knapsack) |
+|20  | [Optimal Strategy Game Pick-up from end of the Array](#optimal-strategy-game-pick-up-from-end-of-the-array) |
 
 
 ##  Matrix Chain Multiplication
@@ -1939,3 +1939,216 @@ int main()
 
 ```
 **[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  0-1 Knapsack
+Given weights and values of n items, put these items in a knapsack of capacity W to get the maximum total value in the knapsack. In other words, given two integer arrays val[0..n-1] and wt[0..n-1] which represent values and weights associated with n items respectively. Also given an integer W which represents knapsack capacity, find out the maximum value subset of val[] such that sum of the weights of this subset is smaller than or equal to W. You cannot break an item, either pick the complete item or don’t pick it (0-1 property).
+
+>  https://leetcode.com/problems/partition-equal-subset-sum/  
+>  https://leetcode.com/problems/partition-to-k-equal-sum-subsets/ (NP Hard)
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define loop(i,n)    for(int i = 0; x < n; i++)
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+// Time Complexicity : O(n*k)
+// Space Complexicity : O(n*k) 
+void maxProfit(){
+        ll n,k;
+        cin>>n>>k;
+        ll wt[n],profit[n];
+        fr(i,0,n) cin>>wt[i];
+        fr(i,0,n) cin>>profit[i];
+
+        ll dp[n+1][k+1];
+        memset(dp,0,sizeof(dp));
+
+        fr(i,1,n+1)
+        {
+            ll temp=wt[i-1];
+            fr(j,0,k+1)
+            {
+                if(j-temp<0) dp[i][j]=dp[i-1][j];
+                else dp[i][j]=max( max(dp[i][j-1], dp[i-1][j] ),dp[i-1][j-temp]+profit[i-1]);
+            }
+        }
+        cout<<dp[n][k];
+
+
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    maxProfit();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Example
+// Input                     Output
+
+// 4 7                         9
+// 1 3 4 5
+// 1 4 5 7
+
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Optimal Strategy Game Pick-up from end of the Array
+Given an array of scores that are non-negative integers. Player 1 picks one of the numbers from either end of the array followed by the player 2 and then player 1 and so on. Each time a player picks a number, that number will not be available for the next player. This continues until all the scores have been chosen. The player with the maximum score wins.  
+  
+
+Given an array of scores, predict whether player 1 is the winner. You can assume each player plays to maximize his score.  
+*  https://leetcode.com/problems/predict-the-winner/
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define loop(i,n)    for(int i = 0; x < n; i++)
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+ll getSum(ll *sum,ll i,ll j)
+{
+    if(i>j) return 0;
+    ll temp=sum[j];
+    if(i>0) temp-=sum[i-1];
+    return temp;
+}
+
+// Time Complexicity : O(n*n)
+// Space Complexicity : O(n*n) 
+void maxProfit(){
+        ll n;
+        cin>>n;
+
+        ll a[n];
+        fr(i,0,n) cin>>a[i];
+
+        ll cumFreq[n]={a[0]};
+
+        fr(i,1,n) cumFreq[i]=cumFreq[i-1]+a[i];
+
+
+        ll dp[n+1][n+1];
+        memset(dp,0,sizeof(dp));
+
+        fr(i,1,n+1) dp[i][i]=a[i-1];
+
+        ll inc=1,i=0,j=1;
+
+     
+     while(inc<n)
+     {
+        i=1; j=i+inc;
+        while(i<n+1&&j<n+1)
+        {
+            dp[i][j]=max( 
+                getSum(cumFreq,i-1,j-2)-dp[i][j-1]+a[j-1] , 
+                getSum(cumFreq,i,j-1)-dp[i+1][j]+a[i-1]
+                );
+            i++; j++;
+        }
+        inc++;
+     }
+
+     // fr(i,0,n+1) {
+     //    fr(j,0,n+1) cout<< dp[i][j]<<" ";
+     //    cout<<endl;
+     // }
+
+
+     cout<<dp[1][n]<<" ";
+
+     bool ans=dp[1][n]>=getSum(cumFreq,0,n-1)-dp[1][n];;
+
+     cout<<ans<<endl;
+
+      // return dp[1][n]>=getSum(cumFreq,0,n-1)-dp[1][n]; (if player 1 is winner return true)
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    maxProfit();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Example
+// Input                     Output
+
+// 4                          10 1
+// 7 1 3 4
+
+// 3                          3 0 
+// 1 5 2
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
