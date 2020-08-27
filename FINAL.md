@@ -32,6 +32,8 @@
 |18  | [Maximum profit by buying and selling a share at most k times](#maximum-profit-by-buying-and-selling-a-share-at-most-k-times) |
 |19  | [0-1 Knapsack](#0-1-knapsack) |
 |20  | [Optimal Strategy Game Pick-up from end of the Array](#optimal-strategy-game-pick-up-from-end-of-the-array) |
+|21  | [Minimum jump to reach end of array](#minimum-jump-to-reach-end-of-array) |
+
 
 
 ##  Matrix Chain Multiplication
@@ -2148,6 +2150,98 @@ int main()
 
 // 3                          3 0 
 // 1 5 2
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Minimum jump to reach end of array
+
+>  https://leetcode.com/problems/jump-game/  
+>  https://leetcode.com/problems/jump-game-ii/  
+>  https://leetcode.com/problems/jump-game-iii/
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)   for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)        lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)        upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long mod=pow(10,9)+7;
+
+// Time Complexicity : O(n)
+// Space Complexicity : O(n) 
+void jump(){
+        ll n;
+        cin>>n;
+
+        ll a[n];
+        fr(i,0,n) cin>>a[i];
+
+        ll jumpsCount[n],path[n];
+        memset(jumpsCount,0,sizeof(jumpsCount));
+        path[0]=-1;
+        int i=0,j=0;
+        while(j<n)
+        {
+            ll temp=i+a[i]-j+1;
+            while(temp>0 && j<n )
+            {  
+                if(j){
+                jumpsCount[j]=jumpsCount[i]+1;
+                path[j]=i;
+                }
+                j++;
+                temp--;
+            }
+            i++;
+        }
+        fr(i,0,n) cout<<jumpsCount[i]<<" "; 
+        cout<<endl;
+        fr(i,0,n) cout<<path[i]<<" ";
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    jump();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+
+// Example
+// Input                               Output
+// 10                            0 1 1 2 2 3 3 4 4 4 
+// 2 3 1 1 2 4 2 0 1 1          -1 0 0 1 1 4 4 5 5 5 
+// In this example minimum jump required to reach at end of array from starting index is 4
 
 ```
 **[⬆ Back to Top](#----cp-algorithms-)** 
