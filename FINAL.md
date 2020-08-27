@@ -33,6 +33,8 @@
 |19  | [0-1 Knapsack](#0-1-knapsack) |
 |20  | [Optimal Strategy Game Pick-up from end of the Array](#optimal-strategy-game-pick-up-from-end-of-the-array) |
 |21  | [Minimum jump to reach end of array](#minimum-jump-to-reach-end-of-array) |
+|22  | [Box Stacking Problem](#box-stacking-problem) |
+
 
 
 
@@ -2245,4 +2247,136 @@ int main()
 
 ```
 **[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Box Stacking Problem
+You are given a set of n types of rectangular 3-D boxes, where the i^th box has height h(i), width w(i) and depth d(i) (all real numbers). You want to create a stack of boxes which is as tall as possible, but you can only stack a box on top of another box if the dimensions of the 2-D base of the lower box are each strictly larger than those of the 2-D base of the higher box. Of course, you can rotate a box so that any side functions as its base. It is also allowable to use multiple instances of the same type of box.  
+  
+>  https://practice.geeksforgeeks.org/problems/box-stacking/1  
+```C++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define scn(n)       scanf("%lld",&n)
+#define lscn(n)      scanf("%lld",&n)
+#define lpri(n)      printf("%lld",n)
+#define pri(n)       printf("%d",n)
+#define pln()        printf("\n")
+#define priln(n)     printf("%d\n",n)
+#define lpriln(n)    printf("%lld\n",n)
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
+
+struct box{
+    ll l,w,h;
+    void set(ll l,ll w,ll h)
+    {
+        this->l=l;
+        this->w=w;
+        this->h=h;
+    }
+};
+
+bool comp(box a,box b)
+{
+    return a.l * a.w > b.l * b.w;
+}
+
+// Time  Complexicity : O(n*n)
+// Space Complexicity : O(n) 
+void boxStacking(){
+        ll n;
+        cin>>n;
+        box boxes[3*n];
+
+        fr(i,0,n) {
+            ll a,b,c;
+            cin>>a>>b>>c;
+            ll ind=3*i;
+            boxes[ind].set(max(a,b),min(a,b),c) ;
+            boxes[ind+1].set(max(c,b),min(c,b),a) ;
+            boxes[ind+2].set(max(a,c),min(a,c),b) ;
+        }
+        sort(boxes,boxes+3*n,comp);
+        fr(i,0,3*n){
+            cout<<boxes[i].l<<" "<<boxes[i].w<<" "<<boxes[i].h<<endl;
+        }
+
+        ll height[3*n],st[3*n];
+        memset(height,0,sizeof(height));
+        memset(st,-1,sizeof(st));
+        
+        fr(i,0,3*n) height[i]=boxes[i].h;
+        
+        fr(i,0,3*n){
+            fr(j,i+1,3*n){
+                if( boxes[i].l > boxes[j].l && boxes[i].w > boxes[j].w ) {
+                    if( boxes[j].h + height[i] > height[j] ){
+                        height[j]=boxes[j].h + height[i];
+                        st[j]=i;
+                    }
+                }
+            }
+        }
+        ll ans=0;
+        fr(i,0,3*n){
+            ans=max(ans,height[i]);
+            cout<<height[i]<<" "; 
+        }
+        cout<<endl;
+        fr(i,0,3*n){
+            cout<<st[i]<<" "; 
+        }
+        cout<<endl;
+        cout<<ans<<endl;
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+    boxStacking();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+
+// Example
+// Input                      Output
+// 4
+// 4 6 7                       60
+// 1 2 3
+// 4 5 6
+// 10 12 32
+
+// 2                           11
+// 1 2 4
+// 3 2 5
+
+
+
+```
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
 
