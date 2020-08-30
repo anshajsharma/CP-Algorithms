@@ -13,7 +13,7 @@
 |    | [*Special Notes*](#special-notes-) |
 |    | **Graph Related Topics** |
 |1   | [Disjoint Set Data Structure](#disjoint-set-data-structure) |
-|2   | [Kruskal's Algorithm MST](#kruskal-s-algorithm-mst) |
+|2   | [Kruskal's Algorithm MST](#kruskals-algorithm-mst) |
 |3   | [Cycle Detection Using DS](#cycle-detection-using-ds) |
 |1   | [Namespace](#namespace) |
 |1   | [Namespace](#namespace) |
