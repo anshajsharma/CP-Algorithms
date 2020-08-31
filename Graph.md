@@ -15,10 +15,10 @@
 |1   | [Disjoint Set Data Structure](#disjoint-set-data-structure) |
 |2   | [Kruskal's Algorithm MST](#kruskals-algorithm-mst) |
 |3   | [Cycle Detection Using DS](#cycle-detection-using-ds) |
-|1   | [Namespace](#namespace) |
-|1   | [Namespace](#namespace) |
-|1   | [Namespace](#namespace) |
-|1   | [Namespace](#namespace) |
+|4   | [Strongly Connected Components](#strongly-connected-components) |
+|5   | [Namespace](#namespace) |
+|6   | [Namespace](#namespace) |
+|7   | [Namespace](#namespace) |
 
 
 
@@ -433,6 +433,178 @@ int main()
 // 0 2
 // 2 4
 // 4 1
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Strongly Connected Components
+A directed graph is strongly connected if there is a path between all pairs of vertices. A strongly connected component (SCC) of a directed graph is a maximal strongly connected subgraph. For example, there are 3 SCCs in the following graph.  
+<h5 align="center">
+   Image Src: GFG
+ </h5>   
+ 
+![](https://github.com/anshajsharma/CP-Algorithms/blob/master/Data/SCC.png)  
+>  Given Algo named as **Kosaraju's Algorithm**   
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
+
+//--------------------------------------------------
+//Used for main graph
+stack<int> s;
+std::vector<ll> v[maxx];
+int visited[maxx];
+
+void dfs(int root){
+  visited[root]=1;
+  for (int i:v[root])
+  {
+    if(!visited[i]) dfs(i);
+  }
+  s.push(root);
+}
+//--------------------------------------------------
+//Used for reversed graph
+std::vector<ll> rv[maxx];
+int rvisited[maxx]; 
+std::vector<int> SCC[maxx];
+int SccCount=0;
+void rdfs(int root){
+  rvisited[root]=1;
+
+  SCC[SccCount].pb(root);
+
+  for (int i:rv[root])
+  {
+    if(!rvisited[i]) rdfs(i);
+  }
+
+}
+//--------------------------------------------------
+void PrintStack(stack<int> s) 
+{ 
+    if (s.empty())  
+        return; 
+    int x = s.top(); 
+    s.pop(); 
+    PrintStack(s); 
+    cout << x << " "; 
+    s.push(x); 
+} 
+//--------------------------------------------------
+// Time Complexicity: O(n+e)
+void stronglyConnectedComponent()
+{
+    int n,e;
+    cin>>n>>e;
+    int st=-1;
+    fr(i,0,e){
+      int x,y;
+      cin>>x>>y;
+      if(st==-1) st=x;
+      v[x].pb(y);    // Contains vertex
+      rv[y].pb(x);   // Contains reverse vertex used for reverse graph
+    }
+    fr(i,0,n) // for 0 based indexing
+    if(!visited[i]) dfs(i); 
+    // PrintStack(s); cout<<endl;
+
+    while(!s.empty()){
+      int temp=s.top();
+      s.pop();
+      if(!rvisited[temp]) {
+        rdfs(temp); SccCount++;
+      }
+    }
+    cout<<"SCC Count: "<<SccCount<<endl;
+    fr(i,0,SccCount){
+      int l=SCC[i].size();
+      fr(j,0,l){
+        cout<<SCC[i][j]<<" ";
+      }
+      cout<<endl;
+    }
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+     stronglyConnectedComponent();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Input           Output
+// 3 2             SCC Count: 3
+// 0 1             0
+// 1 2             1
+//                 2
+
+// 11 13           SCC Count: 4
+// 2 0             6 9 8 7 
+// 0 1             10 
+// 1 2             0 2 1 
+// 1 3             3 5 4 
+// 3 4
+// 4 5
+// 5 3
+// 6 5
+// 6 7
+// 7 8
+// 8 9
+// 9 6
+// 9 10
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Disjoin
+
+```c++
 
 ```
 
