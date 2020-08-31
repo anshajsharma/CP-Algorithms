@@ -582,6 +582,13 @@ int main()
 // 9 6
 // 9 10
 
+// 5 5             SCC Count: 3  (see above figure)      
+// 0 3             0 1 2 
+// 3 4             3
+// 1 0             4
+// 2 1
+// 0 2
+
 ```
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
