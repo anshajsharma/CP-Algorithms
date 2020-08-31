@@ -16,8 +16,8 @@
 |2   | [Kruskal's Algorithm MST](#kruskals-algorithm-mst) |
 |3   | [Cycle Detection Using DS](#cycle-detection-using-ds) |
 |4   | [Strongly Connected Components](#strongly-connected-components) |
-|5   | [Namespace](#namespace) |
-|6   | [Namespace](#namespace) |
+|5   | [Prim's Algorithm MST](#prims-algorithm-mst) |
+|6   | [Topological Sort](#topological-sort) |
 |7   | [Namespace](#namespace) |
 
 
@@ -253,6 +253,7 @@ bool comp(edge a,edge b)
   return a.weight<b.weight;
 }
 
+//Time Complexicity: O(NlogE) or O(ElogN)
 void kruskalAlgoMST()
 {
     ll n,e;
@@ -593,7 +594,7 @@ int main()
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
 
-##  Disjoin
+##  Prim's Algorithm MST
 
 ```c++
 
@@ -601,9 +602,90 @@ int main()
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
 
-##  Disjoin
+##  Topological Sort
 
 ```c++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
+
+vector<int> ans;
+std::vector<ll> v[maxx];
+int visited[maxx];
+
+void dfs(int root){
+  visited[root]=1;
+  for (int i:v[root])
+  {
+    if(!visited[i]) dfs(i);
+  }
+  ans.pb(root);
+}
+// Time Complexicity: O(n+e)
+void topological_sort()
+{
+    int n,e;
+    cin>>n>>e;
+    fr(i,0,e){
+      int x,y;
+      cin>>x>>y;
+      v[x].pb(y);    
+    }
+
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i])
+            dfs(i);
+    }
+    reverse(ans.begin(), ans.end());
+    int l=ans.size();
+    fr(i,0,l) cout<<ans[i]<<" ";
+}
+int main()
+{
+    // fast;
+    #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+    #endif
+
+     topological_sort();  
+
+    #ifndef ONLINE_JUDGE
+    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
+    #endif
+    return 0;
+}
+// Input           Output
+// 3 2             2 0 1
+// 0 1             
+// 2 1             
+
+// 5 5             0 2 1 3 4 
+// 0 3
+// 3 4
+// 1 0
+// 2 1
+// 0 2
+ 
 
 ```
 
