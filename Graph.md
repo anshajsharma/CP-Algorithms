@@ -22,6 +22,13 @@
 |8   | [Namespace](#namespace) |
 
 ##  Dijkstra's SSSP Algorithm
+
+You are given a directed or undirected weighted graph with n vertices and m edges. The weights of all edges are non-negative. You are also given a starting vertex s. This article discusses finding the lengths of the shortest paths from a starting vertex s to all other vertices, and output the shortest paths themselves.  
+  
+This problem is also called **single-source shortest paths problem.**
+
+*  **Dijkstra's algorthm fails in case of graph containing negative cycle or negative edge weight.**   
+
 >  https://codeforces.com/contest/20/problem/C  
 
 ```C++
