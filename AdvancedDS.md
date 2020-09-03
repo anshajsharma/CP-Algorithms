@@ -14,7 +14,7 @@
 |    | **Advanced Data Structures** |
 |1   | [Disjoint Set Data Structure](#disjoint-set-data-structure) |
 |2   | [Segment Tree](#segment-tree)|
-|    | [Lazy Propogation](lazy-propogation) |
+|    | [Lazy Propogation](#lazy-propogation) |
 |3   | [Namespace](#namespace) |
 |4   | [Namespace](#namespace) |
 |5   | [Namespace](#namespace) |
