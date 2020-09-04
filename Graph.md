@@ -19,7 +19,12 @@
 |5   | [Cycle Detection Using DS](#cycle-detection-using-ds) |
 |6   | [Strongly Connected Components](#strongly-connected-components) |
 |7   | [Prim's Algorithm MST](#prims-algorithm-mst) |
-|8   | [Namespace](#namespace) |
+|8   | [Circumference of Tree](#circumference-of-tree) |
+|9   | [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph) |
+|10  | [Namespace](#namespace) |
+|11  | [Namespace](#namespace) |
+|12  | [Namespace](#namespace) |
+|13  | [Namespace](#namespace) |
 
 ##  Dijkstra's SSSP Algorithm
 
@@ -827,9 +832,222 @@ int main()
 
 
 
-##  Disjoin
+##  Circumference of Tree
+*  **Concept used:** Pick any random node(*say a*) and find node(*say b*) having largest distance from it. Now again find final node(*say ans*) which is farthest from found node(*i.e. from b*)  
+*  For *Tree* as only BFS is used 2 times Time complexicity: **O(V+E)** i.e. **O(N)**  
+*  **NOTE:** For *Graph*, using this concept time complexicity will be **O(N^3)** (Think How??)  
+>  https://www.youtube.com/watch?v=MOy4UDjN8DM (Tutorial)
+>  https://codeforces.com/gym/102694/problem/A  
+>  https://codeforces.com/gym/102694/problem/B (Good One)
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
+ 
+vector<ll> adj[500005];
+int visited[500005]={0};
+ll level[500005];
+map<pair<ll , ll> , ll> m;
+void fillup() 
+{
+ for(int i=0;i<500005;i++)
+  { visited[i]=0; level[i]=-1; }
+}
+void addEdge(ll a,ll b)
+{
+           adj[a].pb(b);
+  if(a!=b) adj[b].pb(a);  //if undirected
+}
+ 
+void bfs(int root)
+{
+  fillup();
+  visited[root]=1;
+  level[root]=0;
+  queue<int> q;
+  q.push(root);
+  while(!q.empty()){
+    ll t = q.front();
+    q.pop();
+    for( auto i : adj[t] )
+    {
+      if(!visited[i]){
+        level[i] = level[t]+1;
+        q.push(i);
+        visited[i]=1;
+      }
+    }
+ 
+  }
+}
+ 
+int main()
+{
+  #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+  #endif
+ 
+   ll n;
+   cin>>n;
+   if(n==1){
+    cout<<0; return 0;
+   }
+    fr(i,0,n){
+      ll a,b;
+      cin>>a>>b;
+      addEdge(a,b);
+    }
+ 
+    bfs(1);
+    int lstNode = -1,mx=-1;
+    fr(i,1,n+1){
+      if(level[i]>mx){
+        mx=level[i]; lstNode=i;
+      }
+    }
+    bfs(lstNode);
+    lstNode = -1,mx=-1;
+    fr(i,1,n+1){
+      if(level[i]>mx){
+        mx=level[i]; lstNode=i;
+      }
+    }
+    // Here mx is diameter of tree.
+    cout<<3*mx<<" ";
+ 
+    
+ 
+   return 0;
+}
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+##  Cycle Detection In Directed Graph
+*  **Concept Used:** Maintain three sets: 
+    *  whiteSet for unvisited nodes
+    *  greySet for nodes currently in use
+    *  blackSet for nodes fully explored
+    *  now, if we found the new nodes which we want to visit is alredy in greySet i.e. Cycle Exist.  
+>  **Related Problems Link:**
+*  https://leetcode.com/problems/course-schedule/
+*  https://leetcode.com/problems/course-schedule-ii/  
+*  https://leetcode.com/problems/course-schedule-iii/ (unsolved)
 
 ```c++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
+
+ 
+vector<ll> adj[500005];
+
+void addDirectedEdge(ll a,ll b)
+{
+      adj[a].pb(b);
+}
+void moveElement(int num,set<int>& a,set<int>& b )
+{
+  a.erase(num); b.insert(num);
+}
+bool dfs(set<int> &whiteSet,set<int> &greySet,set<int> &blackSet,int root)
+{
+    moveElement(root,whiteSet,greySet);
+    for(auto i : adj[root])
+    {
+      if(blackSet.find(i)!=blackSet.end())
+      {
+        continue;
+      }
+      else if(greySet.find(i)!=greySet.end())
+      {
+        return true;
+      }else if(dfs(whiteSet,greySet,blackSet,i)){
+        return true;
+      }
+    }
+    moveElement(root,greySet,blackSet);
+    return false;
+}
+
+
+
+void cycleDetectionInDirectedGraph()
+{
+  set<int> whiteSet;  // Contains Unvisited vertices
+  set<int> greySet;   // Contains in use vertices
+  set<int> blackSet;  // Contains explored vertices
+  ll n,e;
+  cin>>n>>e;
+  ll a,b;
+  fr(i,0,e){
+    cin>>a>>b;
+    addDirectedEdge(a,b);
+  }
+  fr(i,0,n){  // for 0 based indexing
+    whiteSet.insert(i);
+  }
+  int f=0;
+  while(whiteSet.size()>0){
+    int root  = *whiteSet.begin();
+    if(dfs(whiteSet,greySet,blackSet,root)) f=1;
+  }
+    
+  if(f) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
+}
+
+int main()
+{
+  #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+  #endif
+
+   cycleDetectionInDirectedGraph();
+
+   return 0;
+}
+
 
 ```
 
@@ -842,6 +1060,97 @@ int main()
 ```
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
+
+##  Disjoin
+
+```c++
+
+```
+
+**[⬆ Back to Top](#----cp-algorithms-)** 
+
 
 ##  Disjoin
 
