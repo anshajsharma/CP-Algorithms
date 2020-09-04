@@ -15,7 +15,7 @@
 |1   | [Disjoint Set Data Structure](#disjoint-set-data-structure) |
 |2   | [Segment Tree](#segment-tree)|
 |    | [Lazy Propogation](#lazy-propogation) |
-|3   | [Namespace](#namespace) |
+|3   | [Trie](#trie) |
 |4   | [Namespace](#namespace) |
 |5   | [Namespace](#namespace) |
 
@@ -301,9 +301,166 @@ ll query(ll ind,ll l,ll r,ll lq,ll rq){  //query(0,0,n-1,lq,rq);   sum on interv
 **[⬆ Back to Top](#----cp-algorithms-)** 
 
 
-## Segment Tree
-
+## Trie  
+**Initialising trie DS.**
 ```c++
+struct trie{
+  trie *a[26];
+  bool isLastChar;
+
+  trie(){
+    isLastChar = false;
+    for(int i=0;i<26;i++)
+    a[i]=NULL;
+  }
+};
+```  
+**Insertion in trie.**
+```c++
+void insert(trie *root,int lev,string s)
+{
+    trie *p = root;
+    int l= s.size();
+    for (int i = 0; i < l; i++)
+    {
+        int index = s[i] - 'a';
+        if (!p->a[index])
+            p->a[index] = new trie();
+
+        p = p->a[index];
+    }
+    p->isLastChar = true;
+}
+```  
+**Searching in trie.**
+```c++
+bool search(trie *root,string s)
+{
+    int len=s.size();
+    int lev=0;
+    while(lev!=len)
+    {
+        int ind=s[lev]-'a';
+        if(root->a[ind]==NULL) return false;
+         root=root->a[ind];
+        lev++;
+    }
+    return root->isLastChar;
+}
+```  
+**Deletion in trie.**
+```c++
+void  deleteStr(trie * root,string s)
+{
+    int len=s.size();
+    int lev=0;
+    while(lev!=len)
+    {
+        int ind=s[lev]-'a';
+        if(root->a[ind]==NULL) return ;
+        root=root->a[ind];
+        lev++;
+    }
+    root->isLastChar=false;
+}
+```
+**Problems Link:**  
+*  https://www.hackerearth.com/practice/data-structures/advanced-data-structures/trie-keyword-tree/practice-problems/algorithm/prasanjeet-verma-and-his-sorrow/  
+*  https://www.hackerearth.com/practice/data-structures/advanced-data-structures/trie-keyword-tree/practice-problems/algorithm/search-engine/ (Good One)    
+*  https://www.hackerearth.com/practice/data-structures/advanced-data-structures/trie-keyword-tree/practice-problems/algorithm/cost-of-data-11/  
+  
+  
+    
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
+
+struct trie{
+  trie *a[26];
+  bool isLastChar;
+
+  trie(){
+    isLastChar = false;
+    for(int i=0;i<26;i++)
+    a[i]=NULL;
+  }
+};
+void insert(trie *root,int lev,string s)
+{
+    trie *p = root;
+    int l= s.size();
+    for (int i = 0; i < l; i++)
+    {
+        int index = s[i] - 'a';
+        if (!p->a[index])
+            p->a[index] = new trie();
+
+        p = p->a[index];
+    }
+    p->isLastChar = true;
+}
+bool search(trie *root,string s)
+{
+    int len=s.size();
+    int lev=0;
+    while(lev!=len)
+    {
+        int ind=s[lev]-'a';
+        if(root->a[ind]==NULL) return false;
+         root=root->a[ind];
+        lev++;
+    }
+    return root->isLastChar;
+}
+
+int main()
+{
+  #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+  #endif
+
+    trie *dictionary = new trie();
+    insert(dictionary,0,"abc");
+    insert(dictionary,0,"abcd");
+    insert(dictionary,0,"abcssd");
+    insert(dictionary,0,"adfbc");
+    if(search(dictionary,"abcg")) cout<<"YES";
+    if(!search(dictionary,"abcg")) cout<<"NO";
+    cout<<endl;
+    if(search(dictionary,"abc")) cout<<"YES";
+    if(!search(dictionary,"abc")) cout<<"NO";
+    cout<<endl;
+    if(search(dictionary,"ab")) cout<<"YES";
+    if(!search(dictionary,"ab")) cout<<"NO";
+
+   return 0;
+}
+
+// Output:
+// NO
+// YES
+// NO
 
 ```
 
