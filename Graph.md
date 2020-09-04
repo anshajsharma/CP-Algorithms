@@ -21,8 +21,8 @@
 |7   | [Prim's Algorithm MST](#prims-algorithm-mst) |
 |8   | [Circumference of Tree](#circumference-of-tree) |
 |9   | [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph) |
-|10  | [Namespace](#namespace) |
-|11  | [Namespace](#namespace) |
+|10  | [Lowest Common Ancestor-Binary Lifting](#lowest-common-ancestor-binary-lifting) |
+|11  | [Articulation Point](#articulation-point) |
 |12  | [Namespace](#namespace) |
 |13  | [Namespace](#namespace) |
 
@@ -1053,19 +1053,159 @@ int main()
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
 
-##  Disjoin
+##  Lowest Common Ancestor-Binary Lifting
 
 ```c++
+int tim=1,tin[100005],tout[100005];
+int up[100005][20];
 
+void dfs(int u,int pa)      // dfs(0,-1)
+{
+    level[u]=level[pa]+1;   // level child = level parent + 1
+    tin[u]=++tim;           // In time
+    par[u][0]=pa;           // immediate parent of u is pa 
+    fr(i,1,20)               // As all ancestors of ancestors of current nodes is already explored using those we will update curr
+        par[u][i]=par[par[u][i-1]][i-1];
+    for(int v:g[u])
+    {
+        if(v!=pa)
+            dfs(v,u);
+    }
+    tout[u]=++tim;
+}
+
+bool isansc(int u,int v)
+{
+    // u is parent of v if and only if it came before and left after v. 
+    return ((tin[u]<=tin[v])&&(tout[u]>=tout[v]));   // equal when u==v
+}
+
+int lca(int u,int v)
+{
+    if(isansc(u,v))
+        return u;
+    if(isansc(v,u))
+        return v;
+    for(int i=19;i>=0;i--)
+    {
+        if(!isansc(par[u][i],v))   //Here we will find first node just below actual LCA which is not ancestor of both u and v.
+            u=par[u][i];
+    }
+    return par[u][0];
+}
 ```
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
 
 
-##  Disjoin
+##  Articulation Point
+**Definition:** In a graph, a vertex is called an articulation point if removing it and all the edges associated with it results in the increase of the number of connected components in the graph.  
 
 ```c++
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,j,n)    for(ll i=j;i<n;i++)
+#define tc           ll t1; cin>>t1; while(t1--)
+#define inp          ll n; cin>>n; ll a[n]; fr(i,0,n) cin>>a[i];
+#define inp1         ll n1; cin>>n1; ll a[n1]; fr(i,0,n1) cin>>a[i];
+#define vec          vector<ll>
+#define pb           push_back
+#define pii          pair<ll,ll>
+#define mp           make_pair
+#define F            first
+#define S            second
+#define fast         ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define srt(v)       sort(v.begin(),v.end())
+#define srte(v)      sort(v.rbegin(),v.rend())
+#define maxx         1000005
+#define lb(v,n)      lower_bound(v.begin(),v.end(),n)-v.begin()
+#define ub(v,n)      upper_bound(v.begin(),v.end(),n)-v.begin()
+#define inf          LONG_LONG_MAX
+#define zer          LONG_MIN
+const long           mod=pow(10,9)+7;
 
+ 
+vector<ll> adj[500005];
+ll timeC=1;
+std::vector<int> parent(500005);
+int visitedTime[500005];
+int lowTime[500005];
+void addEdge(ll a,ll b)
+{
+            adj[a].pb(b);
+   if(a!=b) adj[b].pb(a);   
+}
+std::vector<int> articulationPts;
+void dfs(int root,int p)
+{
+    parent[root]=p;
+    visitedTime[root]=timeC;
+    lowTime[root] = timeC;
+    int childC = 0;
+    timeC++;
+    bool isAP = false;
+    for(auto i:adj[root])
+    {
+      if(i==parent[root]) continue;
+      if(!visitedTime[i]){
+        // parent[i]=root;
+        childC++;
+        dfs(i,root);
+        if( visitedTime[root] <= lowTime[i]){
+          isAP = true;
+        }else{
+          lowTime[root] = min(lowTime[root],lowTime[i]); 
+        }
+      } else {
+        lowTime[root] = min(lowTime[root],lowTime[i]); 
+      }
+    }
+
+    if((parent[root]==-1 && childC>=2) || (parent[root]!=-1 && isAP))
+    {
+      // cout<<root<<" "<<childC<<" "<<parent[root]<<" "<<isAP<<endl;
+      articulationPts.pb(root);
+    }
+
+}
+
+
+
+void articulationPoints()
+{
+  ll n,e;
+  cin>>n>>e;
+  ll a,b;
+  fr(i,0,e){
+    cin>>a>>b;
+    addEdge(a,b);
+  }
+  dfs(0,-1);
+  int l=articulationPts.size();
+  cout<<l<<endl;
+  // fr(i,0,n) cout<<parent[i]<<" "<<lowTime[i]<<" "<<visitedTime[i]<<endl;
+  fr(i,0,l) cout<<articulationPts[i]<<" ";
+}
+
+int main()
+{
+  #ifndef ONLINE_JUDGE
+    freopen("inputf.in" , "r" , stdin);
+    freopen("outputf.in" , "w" , stdout);
+  #endif
+
+   articulationPoints();
+
+   return 0;
+}
+// Input    Output
+// 5 5      2
+// 0 1      3 2
+// 0 2
+// 1 2
+// 2 3
+// 3 4
 ```
 
 **[⬆ Back to Top](#----cp-algorithms-)** 
