@@ -836,7 +836,7 @@ int main()
 *  **Concept used:** Pick any random node(*say a*) and find node(*say b*) having largest distance from it. Now again find final node(*say ans*) which is farthest from found node(*i.e. from b*)  
 *  For *Tree* as only BFS is used 2 times Time complexicity: **O(V+E)** i.e. **O(N)**  
 *  **NOTE:** For *Graph*, using this concept time complexicity will be **O(N^3)** (Think How??)  
->  https://www.youtube.com/watch?v=MOy4UDjN8DM (Tutorial)
+>  https://www.youtube.com/watch?v=MOy4UDjN8DM (Tutorial)  
 >  https://codeforces.com/gym/102694/problem/A  
 >  https://codeforces.com/gym/102694/problem/B (Good One)
 ```c++
