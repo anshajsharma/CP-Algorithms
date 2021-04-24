@@ -106,10 +106,10 @@ ll    randomSingleNumGenarator(ll l,ll r); // [l,r] i.e. both inclusive
 //-----------------------------------------------------------------
 template <typename T> int len(T a) {return (int)a.size();}
 template <typename T> 
-void pri(T v){ for(auto i:v) cout<<i<<" "; }  // can print  1D vect & set
+void pri(T v){ for(auto i:v) cout<<i<<" "; }  // can print  1D vect & set of int,char,string etc.
 void priln(){  cout<<'\n'; }
 template <typename T> 
-void pri2D(T v) { for(auto i:v) { pri(i); cout<<'\n'; } }
+void pri2D(T v) { for(auto i:v) { pri(i); cout<<'\n'; } } // can print  2D vect & set of int,char,string etc.
 
 //----------------------------------------------------------------
 //------------------- SOLUTION BLOCK -----------------------------
