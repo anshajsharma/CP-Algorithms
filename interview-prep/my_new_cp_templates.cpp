@@ -101,7 +101,15 @@ vector<ll> randomArrayGenarator(ll l,ll r,ll count); // [l,r] i.e. both inclusiv
 ll    randomSingleNumGenarator(ll l,ll r); // [l,r] i.e. both inclusive
 
 
-
+//-----------------------------------------------------------------
+//-----------------BASIC HELPERS-----------------------------------
+//-----------------------------------------------------------------
+template <typename T> int len(T a) {return (int)a.size();}
+template <typename T> 
+void pri(T v){ for(auto i:v) cout<<i<<" "; }  // can print  1D vect & set
+void priln(){  cout<<'\n'; }
+template <typename T> 
+void pri2D(T v) { for(auto i:v) { pri(i); cout<<'\n'; } }
 
 //----------------------------------------------------------------
 //------------------- SOLUTION BLOCK -----------------------------
@@ -109,7 +117,22 @@ ll    randomSingleNumGenarator(ll l,ll r); // [l,r] i.e. both inclusive
 void solve()
 {
 
-      debug_out(primeFactorizationOfN(1250));
+      debug_out(primeFactorizationOfN(1250),len(primeFactorizationOfN(1250)),len(primesTillMaxN));
+      pri(primeFactorizationOfN(1250));
+      priln();
+      pri(primeFactorizationOfN(1250)); priln();
+      ll n,m;
+      cin>>n>>m;
+      std::vector<vector<char>> v (n , vector<char> (m, 'a'));
+
+      fr(i,0,n)
+      fr(j,0,m)
+      {
+        cin>>v[i][j];
+      }
+      pri2D(v);
+      // debug_out(v);
+
 }
 
 int main() {
@@ -119,11 +142,12 @@ int main() {
     freopen("op.txt" , "w" , stdout);
     #endif
     // factAndFactInvFillup();
-    // seive()
+    seive();
     // tc
     solve();
 
 }
+
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //------------------- STRING MANUPULATIONS ----------------------
